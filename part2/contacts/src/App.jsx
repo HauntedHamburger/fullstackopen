@@ -1,5 +1,5 @@
-import axios from 'axios'
 import { useState, useEffect } from 'react'
+import personService from './services/persons'
 import Persons from './components/Persons'
 import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
@@ -12,30 +12,55 @@ const App = (props) => {
   const [searchPerson, setSearchPerson] = useState('')
   const [filterPerson, setFilterPerson] = useState(persons)
 
+  
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(res => {
-        setPersons(res.data)
-      })
+    personService
+    .getAll()
+    .then(initialPersons => { 
+      setPersons(initialPersons) 
+    })
   }, [])
-
+  
   const addPerson = e => {
     e.preventDefault()
     const personObject = {
       name: newName,
       number: newNumber,
+      id: String(persons.length + 1)
     } 
 
-    const theyDoExist = persons.find(person => person.name === newName)
+    const theyDoExist = persons.find(p => p.name === newName)
       if (theyDoExist) {
         alert(`Nah bra, ${newName} is already up in here.`)
         return
-      }
-      setPersons(persons.concat(personObject))
-      setFilterPerson(filterPerson.concat(personObject))
-      setNewName('')
-      setNewNumber('')
+    }
+
+    personService
+      .create(personObject)
+      .then(resPerson => {
+        setPersons(persons.concat(resPerson))
+        setNewName('')
+        setNewNumber('')
+      })
+  }
+
+
+  const removePerson = id => {
+    const person = persons.find(p => p.id === id)
+
+    if (window.confirm(`Delete ${person.name}?`)) {
+      personService
+        .remove(person.id)
+        .then(() => {
+          const updatePersons = persons.filter(p => p.id !== id)
+          setPersons(updatePersons)
+          setFilterPerson(updatePersons)
+        })
+        .catch(err => {
+          console.log(`Error deleting person:`, err)
+          alert(`Failed to deleted ${person.name}`)
+        })
+    }
   }
 
   const handleNameChange = e => {
@@ -76,6 +101,7 @@ const App = (props) => {
       <h3>Numbers</h3>
       <Persons 
         persons={persons}
+        removePerson={removePerson}
       />
 
     </div>
