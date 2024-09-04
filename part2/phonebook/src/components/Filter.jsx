@@ -1,28 +1,40 @@
-const Filter = ({ persons, setFilterPerson, setSearchPerson, searchPerson }) => {
+import { useState } from "react"
 
-    const handleFilterPerson = (e) => {
-      const value = e.target.value.toLowerCase()
-      setSearchPerson(value)
-  
-      if (value === '') {
-        setFilterPerson(persons)
-      } else {
-        const filtered = persons.filter(person => 
-          person.name.toLowerCase().includes(value)
-        )
-        setFilterPerson(filtered)
-      }
+const Filter = ({ persons }) => {
+    const [searchPerson, setSearchPerson] = useState('')
+    const [filterPerson, setFilterPerson] = useState([])
+
+    const handleFilterPerson = e => {
+        const searchValue = e.target.value.toLowerCase()
+        setSearchPerson(searchValue)
+
+        if (searchValue === '') {
+            setFilterPerson([])
+        } else {
+            const filteredPerson = persons.filter(person => 
+                person.name.toLowerCase().includes(searchValue)
+            )
+            setFilterPerson(filteredPerson)
+        }
     }
-    
+
     return (
-      <div>
-        <input 
-          value={searchPerson}
-          onChange={handleFilterPerson}
-          placeholder='Search...'
-        />
-      </div>
+        <div>
+            <input
+                value={searchPerson}
+                onChange={handleFilterPerson}
+                placeholder="Search..."
+            />
+            {searchPerson && (
+                <ul>
+                    {filterPerson.map((person) => (
+                        <li key={person.id}>{person.name}</li>
+                    ))}
+                </ul>
+            )}
+        </div>
     )
+
 }
 
 export default Filter

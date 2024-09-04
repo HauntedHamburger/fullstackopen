@@ -1,9 +1,9 @@
-const Person = ({ id, name, number, handleRemove }) => {
+const Person = ({ id, name, number, removePerson }) => {
     return (
-        <li>
-            {name}: 
-            {number}
-            <button onClick={() => handleRemove(id)}>Delete</button>
+        <li key={id} className="flex person">
+            <span>{name}:</span>
+            <span>{number}</span>
+            <button onClick={() => removePerson(id)}>Remove</button>
         </li>
     )
 }

@@ -4,8 +4,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(0, 0, 0, 0.9 );
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,44 +15,92 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  text-decoration: none;
 }
+
 a:hover {
   color: #535bf2;
+}
+
+.flex {
+  display: flex;
 }
 
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2em;
   line-height: 1.1;
 }
 
+input {
+  padding: 12px;
+  color: #111;
+  background: rgba(0, 0, 0, 0.05 );
+  border: .5px rgba(0, 0, 0, 0.075 );
+}
+
+li {
+  gap: 1rem;
+}
+
+form div {
+  padding-bottom: 12px;
+}
+
+.person {
+  padding: 0 0 12px 0;
+}
+
+.error {
+  color: #ffffff;
+  background: #dd1200;
+  font-size: 1rem;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.notificationWrapper {
+  transition: opacity 2s ease-in-out;
+  -moz-transition: opacity 2s ease-in-out;
+  -webkit-transition: opacity 2s ease-in-out;
+}
+
+.success {
+  color: #ffffff;
+  background: #21df00;
+  font-size: 1rem;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  border-radius: 4px;
+  border: none;
+  padding: 4px 12px;
+  font-size: .75em;
+  font-weight: 400;
   font-family: inherit;
-  background-color: #1a1a1a;
+  color: #111111;
+  background-color: rgba(0, 0, 0, 0.25 );
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: backkground-color 0.35s;
 }
+
 button:hover {
-  border-color: #646cff;
+  background-color: rgba(0, 0, 0, 0.125 );
+  color: #111;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -66,3 +114,5 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
